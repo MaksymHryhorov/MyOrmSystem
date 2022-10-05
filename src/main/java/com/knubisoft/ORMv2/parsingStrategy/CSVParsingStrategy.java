@@ -13,6 +13,11 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
     public static final String DELIMITER = ",";
     public static final String COMMENT = "--";
 
+    /**
+     * Create new Table from csv file
+     * @param content csv file
+     * @return Table -> Map(key, value)
+     */
     @Override
     public Table parseToTable(FileReadWriteSource content) {
         List<String> lines = Arrays.asList(content.getContent().split(System.lineSeparator()));
@@ -21,6 +26,12 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return new Table(result);
     }
 
+    /**
+     * Build table
+     * @param lines values from csv file
+     * @param mapping headers from csv line
+     * @return Map(key, Map(key, value))
+     */
     private Map<Integer, Map<String, String>> buildTable(List<String> lines, Map<Integer, String> mapping) {
         Map<Integer, Map<String, String>> result = new LinkedHashMap<>();
         for (int index = 0; index < lines.size(); index++) {
@@ -30,6 +41,12 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return result;
     }
 
+    /**
+     * Map headers with values
+     * @param mapping headers from csv file
+     * @param line values
+     * @return Map(key, value)
+     */
     private Map<String, String> buildRow(Map<Integer, String> mapping, String line) {
         Map<String, String> nameToValueMap = new LinkedHashMap<>();
         String[] rowItems = splitLine(line);
@@ -40,6 +57,11 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return nameToValueMap;
     }
 
+    /**
+     * Build headers from first csv line
+     * @param firstLine line from csv file
+     * @return Map (key, value)
+     */
     private Map<Integer, String> buildMapping(String firstLine) {
         Map<Integer, String> map = new LinkedHashMap<>();
         String[] array = splitLine(firstLine);
@@ -53,6 +75,11 @@ public class CSVParsingStrategy implements ParsingStrategy<FileReadWriteSource> 
         return map;
     }
 
+    /**
+     * Split line by delimiter
+     * @param line from csv file
+     * @return Array fields
+     */
     private static String[] splitLine(String line) {
         return line.split(DELIMITER);
     }

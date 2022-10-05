@@ -17,6 +17,13 @@ import java.util.function.Function;
 
 public class ORM implements ORMInterface {
 
+    /**
+     * Filled Model list
+     * @param inputSource connection
+     * @param cls unknown class
+     * @param <T> unknown type
+     * @return Model List
+     */
     @Override
     @SneakyThrows
     public <T> List<T> readAll(DataReadWriteSource<?> inputSource, Class<T> cls) {
@@ -24,6 +31,13 @@ public class ORM implements ORMInterface {
         return convertTableToListOfClasses(table, cls);
     }
 
+    /**
+     * Fill values into model fields
+     * @param table Table - Map(key, value)
+     * @param cls unknown class
+     * @param <T> unknown type
+     * @return Model list
+     */
     private <T> List<T> convertTableToListOfClasses(Table table, Class<T> cls) {
         List<T> result = new ArrayList<>();
         for (int index = 0; index < table.size(); index++) {
@@ -34,6 +48,13 @@ public class ORM implements ORMInterface {
         return result;
     }
 
+    /**
+     * Set up values into model class
+     * @param row key, value
+     * @param cls unknown class
+     * @param <T> unknown type
+     * @return cls instance
+     */
     @SneakyThrows
     private <T> T reflectTableRowToClass(Map<String, String> row, Class<T> cls) {
         T instance = cls.getDeclaredConstructor().newInstance();
@@ -47,6 +68,12 @@ public class ORM implements ORMInterface {
         return instance;
     }
 
+    /**
+     * Fill values into fields
+     * @param field from unknown class
+     * @param value to fill field
+     * @return Object
+     */
     private static Object transformValueToFieldType(Field field, String value) {
         Map<Class<?>, Function<String, Object>> typeToFunction = new LinkedHashMap<>();
         typeToFunction.put(String.class, s -> s);
@@ -62,6 +89,12 @@ public class ORM implements ORMInterface {
         }).apply(value);
     }
 
+    /**
+     * Convert data to table
+     * @param dataInputSource connection
+     * @param cls unknown
+     * @return Table (LinkedHashMap(key, value))
+     */
     private Table convertToTable(DataReadWriteSource dataInputSource, Class<?> cls) {
         if (dataInputSource instanceof ConnectionReadWriteSource) {
             ConnectionReadWriteSource databaseSource = (ConnectionReadWriteSource) dataInputSource;
@@ -75,6 +108,11 @@ public class ORM implements ORMInterface {
         }
     }
 
+    /**
+     * Choose parse strategy
+     * @param inputSource file
+     * @return parse strategy
+     */
     private ParsingStrategy<FileReadWriteSource> getStringParsingStrategy(FileReadWriteSource inputSource) {
         String content = inputSource.getContent();
         char firstChar = content.charAt(0);

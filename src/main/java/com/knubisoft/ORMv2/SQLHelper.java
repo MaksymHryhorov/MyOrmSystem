@@ -17,6 +17,11 @@ public class SQLHelper {
 
         private final List<String> availableFieldInDatabase;
 
+        /**
+         * Build sql query to insert values in a database
+         * @param o object model
+         * @return built query
+         */
         public String buildSQL(Object o) {
 
             Class<? extends Object> cls = o.getClass();
@@ -28,6 +33,11 @@ public class SQLHelper {
                     tableName, fields, arguments);
         }
 
+        /**
+         * Get arguments
+         * @param cls unknown class
+         * @return list ?
+         */
         private String getArguments(Class<?> cls) {
 
             List<Field> fields = Arrays.asList(cls.getDeclaredFields());
@@ -38,6 +48,11 @@ public class SQLHelper {
             return String.join(",", listFieldNames);
         }
 
+        /**
+         * Get fields from class
+         * @param cls unknown class
+         * @return fields
+         */
         private String getFields(Class<?> cls) {
 
             List<Field> fields = Arrays.asList(cls.getDeclaredFields());
@@ -48,11 +63,21 @@ public class SQLHelper {
             return String.join(",", listFieldNames);
         }
 
+        /**
+         * Get table name from annotation
+         * @param cls unknown cls
+         * @return annotation value
+         */
         private String getTableName(Class<?> cls) {
 
             return cls.getAnnotation(Table.class).name();
         }
 
+        /**
+         * Bind arguments
+         * @param o field - value
+         * @param ps sql query
+         */
         @SneakyThrows
         public void bindArguments(Object o, PreparedStatement ps) {
 

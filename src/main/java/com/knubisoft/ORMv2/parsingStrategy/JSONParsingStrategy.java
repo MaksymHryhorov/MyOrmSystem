@@ -12,6 +12,11 @@ import java.util.Map;
 
 public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource> {
 
+    /**
+     * Build new Table
+     * @param content file
+     * @return Table - Map(key, value)
+     */
     @SneakyThrows
     @Override
     public Table parseToTable(FileReadWriteSource content) {
@@ -21,6 +26,11 @@ public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource>
         return new Table(result);
     }
 
+    /**
+     * Filled map with values from json file
+     * @param tree array json node
+     * @return Map (key, Map(key, value))
+     */
     private Map<Integer, Map<String, String>> buildTable(JsonNode tree) {
         Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
         int index = 0;
@@ -32,6 +42,11 @@ public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource>
         return map;
     }
 
+    /**
+     * Put each row from json file to a map
+     * @param each row in json file
+     * @return Map (key, value)
+     */
     private Map<String, String> buildRow(JsonNode each) {
         Map<String, String> item = new LinkedHashMap<>();
         Iterator<Map.Entry<String, JsonNode>> itr = each.fields();

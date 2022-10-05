@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.function.Function;
 
 public class WriteToDatabase {
+
+    /**
+     * Write model to a database
+     * @param list model with filled values
+     */
     @SneakyThrows
     public void writeToDataBase(List<?> list, Class<?> cls) {
         ConnectionToDatabase connection = new ConnectionToDatabase();

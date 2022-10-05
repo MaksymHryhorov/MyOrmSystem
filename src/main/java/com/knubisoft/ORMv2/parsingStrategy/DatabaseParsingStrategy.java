@@ -17,6 +17,11 @@ public class DatabaseParsingStrategy implements ParsingStrategy<ConnectionReadWr
         this.tableClass = clazz;
     }
 
+    /**
+     * Table
+     * @param connection to a database
+     * @return table - Map(key, value)
+     */
     @SneakyThrows
     @Override
     public Table parseToTable(ConnectionReadWriteSource connection) {
@@ -29,6 +34,11 @@ public class DatabaseParsingStrategy implements ParsingStrategy<ConnectionReadWr
         return new Table(result);
     }
 
+    /**
+     * Build Table
+     * @param rs result set
+     * @return Map(key, Map(key, value))
+     */
     @SneakyThrows
     private Map<Integer, Map<String, String>> buildTable(ResultSet rs) {
         ResultSetMetaData metadata = rs.getMetaData();
