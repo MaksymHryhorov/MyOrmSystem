@@ -17,32 +17,15 @@ public class Main {
 
     private static final ORMInterface ORM = new ORM();
 
+
     public static void main(String[] args) {
         ConnectionToDatabase connection = new ConnectionToDatabase();
+        Parser parser = new Parser();
 
         connection.withConnection(conn -> {
-            process(conn);
+            parser.process(conn);
             return null;
         });
-    }
-
-    private static void process(Connection connection) {
-        File json = new File("src/main/resources/format.json");
-        File csv = new File("src/main/resources/sample.csv");
-        WriteToDatabase wtdb = new WriteToDatabase();
-
-        List<Person> result;
-
-        DataReadWriteSource<ResultSet> rw = new ConnectionReadWriteSource(connection);
-        DataReadWriteSource<?> jsonFile = new FileReadWriteSource(json);
-        DataReadWriteSource<?> csvFile = new FileReadWriteSource(csv);
-
-
-        result = ORM.readAll(csvFile, Person.class);
-        //result = ORM.readAll(jsonFile, Person.class);
-        //result = ORM.readAll(rw, Person.class);
-        wtdb.writeToDataBase(result, Person.class);
-
     }
 
 }
