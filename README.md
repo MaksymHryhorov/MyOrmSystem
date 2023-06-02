@@ -42,4 +42,11 @@ DataReadWriteSource<?> csvFile = new FileReadWriteSource(xml);
     System.out.println(person);
   }
 ```
+
+* If you want to write a model into database
+```java
+WriteToDatabase writeToDatabase = new WriteToDatabase();
+writeToDatabase.writeToDataBase(model list, class.class);
+
 Comment: Where Person is your model class
+```
