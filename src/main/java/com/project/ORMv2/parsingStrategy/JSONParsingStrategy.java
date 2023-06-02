@@ -2,6 +2,8 @@ package com.project.ORMv2.parsingStrategy;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.DoubleNode;
+import com.fasterxml.jackson.databind.node.IntNode;
 import com.project.rwsouce.FileReadWriteSource;
 import com.project.ORMv2.mapper.Table;
 import lombok.SneakyThrows;
@@ -14,6 +16,7 @@ public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource>
 
     /**
      * Build new Table
+     *
      * @param content file
      * @return Table - Map(key, value)
      */
@@ -28,6 +31,7 @@ public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource>
 
     /**
      * Filled map with values from json file
+     *
      * @param tree array json node
      * @return Map (key, Map(key, value))
      */
@@ -44,6 +48,7 @@ public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource>
 
     /**
      * Put each row from json file to a map
+     *
      * @param each row in json file
      * @return Map (key, value)
      */
@@ -52,7 +57,13 @@ public class JSONParsingStrategy implements ParsingStrategy<FileReadWriteSource>
         Iterator<Map.Entry<String, JsonNode>> itr = each.fields();
         while (itr.hasNext()) {
             Map.Entry<String, JsonNode> next = itr.next();
-            item.put(next.getKey(), next.getValue().textValue());
+            if (next.getValue().getClass().equals(DoubleNode.class) ||
+                    next.getValue().getClass().equals(IntNode.class)) {
+                item.put(next.getKey(), String.valueOf(next.getValue()));
+            } else {
+                item.put(next.getKey(), next.getValue().textValue());
+            }
+
         }
         return item;
     }

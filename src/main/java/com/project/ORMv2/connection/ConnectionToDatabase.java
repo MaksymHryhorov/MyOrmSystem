@@ -21,14 +21,6 @@ public class ConnectionToDatabase {
                         " PRIMARY KEY ( id ))");
 
                 stmt.executeUpdate("DELETE FROM person");
-
-                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('MyName5','DEVELOPER','5')");
-                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('MyName6','DEVELOPER','6')");
-                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('MyName7','DEVELOPER','7')");
-                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('MyName8','DEVELOPER','8')");
-                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('MyName9','DEVELOPER','9')");
-                stmt.executeUpdate("INSERT INTO person (name, position, age) VALUES ('MyName10','DEVELOPER','10')");
-
             }
             function.apply(c);
         }

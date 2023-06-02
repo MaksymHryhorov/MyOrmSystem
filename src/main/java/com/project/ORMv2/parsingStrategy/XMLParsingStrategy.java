@@ -2,8 +2,8 @@ package com.project.ORMv2.parsingStrategy;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.project.rwsouce.FileReadWriteSource;
 import com.project.ORMv2.mapper.Table;
+import com.project.rwsouce.FileReadWriteSource;
 import lombok.SneakyThrows;
 
 import java.util.Iterator;

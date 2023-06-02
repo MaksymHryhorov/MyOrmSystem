@@ -1,5 +1,6 @@
 package com.project.ORMv2;
 
+import com.project.ORMv2.connection.WriteToDatabase;
 import com.project.ORMv2.mapper.ORM;
 import com.project.ORMv2.model.Person;
 import com.project.ORMv2.sourceInterf.DataReadWriteSource;
@@ -14,12 +15,13 @@ public class Main {
 
     private static final ORMInterface ORM = new ORM();
 
-
     public static void main(String[] args) {
         File fileFormat = new File("src/main/resources/sample.csv");
+        WriteToDatabase writeToDatabase = new WriteToDatabase();
         DataReadWriteSource<?> source = new FileReadWriteSource(fileFormat);
         List<Person> result = ORM.readAll(source, Person.class);
         result.forEach(System.out::println);
+        writeToDatabase.writeToDataBase(result, Person.class);
     }
 
 }
